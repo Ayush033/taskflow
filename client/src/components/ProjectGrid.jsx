@@ -1,15 +1,8 @@
-const projects = [
-  { name: "Website Redesign", tasks: 12, done: 8, color: "bg-violet-600" },
-  { name: "Mobile App", tasks: 24, done: 5, color: "bg-blue-600" },
-  { name: "Marketing Campaign", tasks: 8, done: 8, color: "bg-emerald-600" },
-  { name: "API Integration", tasks: 16, done: 3, color: "bg-amber-600" },
-]
-
-function ProjectGrid() {
+function ProjectGrid({ projects }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {projects.map((p) => {
-        const percent = Math.round((p.done / p.tasks) * 100)
+        const percent = p.tasks > 0 ? Math.round((p.done / p.tasks) * 100) : 0
         return (
           <div
             key={p.name}
@@ -17,14 +10,9 @@ function ProjectGrid() {
           >
             <div className={`w-10 h-10 rounded-lg ${p.color} mb-4`}></div>
             <h3 className="font-medium text-white">{p.name}</h3>
-            <p className="text-sm text-gray-500 mt-1">
-              {p.done} of {p.tasks} tasks done
-            </p>
+            <p className="text-sm text-gray-500 mt-1">{p.done} of {p.tasks} tasks done</p>
             <div className="mt-4 h-2 bg-gray-800 rounded-full overflow-hidden">
-              <div
-                className={`h-full ${p.color}`}
-                style={{ width: `${percent}%` }}
-              ></div>
+              <div className={`h-full ${p.color}`} style={{ width: `${percent}%` }}></div>
             </div>
             <p className="text-xs text-gray-500 mt-2">{percent}% complete</p>
           </div>
